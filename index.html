@@ -67,9 +67,154 @@ https://stackoverflow.com/questions/8211128/multiple-distinct-pages-in-one-html-
 </style>
 
 <body>
-	
-	<!-- HERE IS WHERE ALL OF YOUR HTML PAGES GO -->
-	REPLACE THIS TEXT
-	
+	<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Friendship Diagnostic App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="w3.css">
+  <link rel="stylesheet" href="w3-colors-flat.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .page {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: -100vw;
+      overflow-y: auto;
+      z-index: 0;
+      background-color: #f39c12; /* solid orange (w3-flat-carrot) */
+      color: #333;
+      text-align: center;
+    }
+
+    .page:target {
+      left: 0vw;
+      z-index: 1;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .banner-image {
+      height: 250px;
+      max-width: 100%;
+      margin: 20px 0;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result {
+      font-size: 1.2em;
+      margin-top: 20px;
+      color: #1e8449;
+    }
+  </style>
+</head>
+<body class="w3-flat-carrot">
+  <!-- Page 1: Welcome -->
+  <div id="page1" class="page" style="left: 0vw; z-index: 1;">
+    <div class="content">
+      <h1>Friendship Diagnostic App</h1>
+      <p>Answer the following questions to explore the health of one of your friendships.</p>
+      <img class="banner-image" src="https://i.gifer.com/7efs.gif" alt="Friends Hugging Animation">
+      <br>
+      <a href="#page2"><button>Start</button></a>
+    </div>
+  </div>
+
+  <!-- Page 2: Question 1 -->
+  <div id="page2" class="page">
+    <div class="content">
+      <p>1. Do you feel comfortable being your authentic self around this friend?</p>
+      <button onclick="storeAnswer('yes', 'page3')">Yes</button>
+      <button onclick="storeAnswer('no', 'page3')">No</button>
+    </div>
+  </div>
+
+  <!-- Page 3: Question 2 -->
+  <div id="page3" class="page">
+    <div class="content">
+      <p>2. Does your friend make an effort to support you emotionally?</p>
+      <button onclick="storeAnswer('yes', 'page4')">Yes</button>
+      <button onclick="storeAnswer('no', 'page4')">No</button>
+    </div>
+  </div>
+
+  <!-- Page 4: Question 3 -->
+  <div id="page4" class="page">
+    <div class="content">
+      <p>3. Do you feel the friendship is mutual (not one-sided)?</p>
+      <button onclick="storeAnswer('yes', 'page5')">Yes</button>
+      <button onclick="storeAnswer('no', 'page5')">No</button>
+    </div>
+  </div>
+
+  <!-- Page 5: Question 4 -->
+  <div id="page5" class="page">
+    <div class="content">
+      <p>4. Can you resolve conflict in a healthy way with this friend?</p>
+      <button onclick="storeAnswer('yes', 'page6')">Yes</button>
+      <button onclick="storeAnswer('no', 'page6')">No</button>
+    </div>
+  </div>
+
+  <!-- Page 6: Result -->
+  <div id="page6" class="page">
+    <div class="content">
+      <h2>Friendship Check-In Result</h2>
+      <p id="result"></p>
+    </div>
+  </div>
+
+  <script>
+    let answers = [];
+
+    function storeAnswer(response, nextPageId) {
+      answers.push(response);
+      if (nextPageId === 'page6') displayResult();
+      location.href = '#' + nextPageId;
+    }
+
+    function displayResult() {
+      const yesCount = answers.filter(ans => ans === 'yes').length;
+      const resultText = document.getElementById('result');
+
+      if (yesCount >= 3) {
+        resultText.textContent = "This friendship seems strong and healthy! Keep nurturing it with care and communication.";
+      } else if (yesCount === 2) {
+        resultText.textContent = "This friendship has a good foundation, but may benefit from more balance or honest conversations.";
+      } else {
+        resultText.textContent = "You may want to reflect on whether this friendship is truly supportive or worth continuing.";
+      }
+    }
+
+    var docMod = document.lastModified;
+    console.log("This file last modified " + docMod);
+  </script>
 </body>
 </html>
